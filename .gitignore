@@ -4,6 +4,6 @@ vSphere_terraform
 # Ignorar todos los archivos .tfvars en cualquier subdirectorio
 **/*.tfvars
 
+
 .terraform.lock.hcl
-License.txt
-terrafomr-provider-vsphere_v2.11.1_x5
+.terraform

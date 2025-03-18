@@ -1,11 +1,11 @@
-terraform {
-  required_providers {
-    vsphere = {
-      source  = "hashicorp/vsphere"
-      version = "~> 2.20.0" # Versión estable
-    }
-  }
-}
+# terraform {
+#   required_providers {
+#     vsphere = {
+#       source  = "hashicorp/vsphere"
+#       version = "~> 2.20.0" # Versión estable
+#     }
+#   }
+# }
 
 # Configuración del proveedor de VMware
 provider "vsphere" {
