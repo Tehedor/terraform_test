@@ -1,2 +1,4 @@
 vSphere_terraform
 00_config_api_vmworkstation/vmware-workstation-api-client
+.tfvars
+terraform.tfvars
