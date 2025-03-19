@@ -5,5 +5,5 @@ vSphere_terraform
 **/*.tfvars
 
 
-.terraform.lock.hcl
-.terraform
+# .terraform.lock.hcl
+# .terraform
