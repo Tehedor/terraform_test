@@ -38,4 +38,9 @@ resource "vsphere_virtual_machine" "vm" {
       ipv4_gateway = var.ipv4_gateway
     }
   }
+
+   cdrom {
+    datastore_id = data.vsphere_datastore.iso_datastore.name
+    path         = var.vsphere_iso_path
+  }
 }

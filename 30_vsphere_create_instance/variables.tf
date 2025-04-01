@@ -38,6 +38,17 @@ variable "vsphere_resource_pool" {
   type        = string
 }
 
+# Controlador de la ISO
+variable "vsphere_iso_datastore" {
+  description = "Datastore donde se encuentra la ISO"
+  type        = string
+}
+
+variable "vsphere_iso_path" {
+  description = "Ruta de la ISO en el datastore"
+  type        = string
+}
+
 #Variables de las VMs
 variable "vm_template_name" {
   description = "Template que vamos a utilizar para el despliegue de las VMs"
