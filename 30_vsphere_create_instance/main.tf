@@ -44,7 +44,7 @@ resource "vsphere_virtual_machine" "vm" {
     datastore_id = data.vsphere_datastore.iso_datastore.id
     path         = var.vsphere_iso_path
   }
-  boot_order {
-    device = "cdrom"
+  extra_config = {
+    "efi.bootOrder.1" = "cdrom"
   }
 }
