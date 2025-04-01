@@ -85,7 +85,7 @@ variable "vm_ipv4_netmask" {
   description = "Mascara de subred IPv4"
 }
 
-variable "ipv4_gateway" {
+variable "vm_ipv4_gateway" {
   description = "Gateway de las VMs"
 }
 

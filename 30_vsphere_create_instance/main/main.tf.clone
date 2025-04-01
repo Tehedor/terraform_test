@@ -23,14 +23,19 @@ resource "vsphere_virtual_machine" "vm" {
     thin_provisioned = var.vm_disk_thin
   }
 
-   vapp {
-    properties = {
-      "guestinfo.hostname"     = each.value.name
-      "guestinfo.ipaddress"    = each.value.vm_ip
-      "guestinfo.netmask"      = var.vm_ipv4_netmask
-      "guestinfo.gateway"      = var.vm_ipv4_gateway
-      "guestinfo.dns"          = join(",", var.vm_dns_servers)
-      "guestinfo.domain"       = var.domain
+  clone {
+    template_uuid = data.vsphere_virtual_machine.template.id
+    customize {
+      linux_options {
+        host_name = each.value.name
+        domain    = var.domain
+      }
+      network_interface {
+        ipv4_address = each.value.vm_ip
+        ipv4_netmask = var.vm_ipv4_netmask
+        dns_server_list = var.vm_dns_servers
+      }
+      ipv4_gateway = var.ipv4_gateway
     }
   }
 
