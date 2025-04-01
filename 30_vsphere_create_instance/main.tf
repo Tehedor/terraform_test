@@ -3,7 +3,7 @@
 resource "vsphere_virtual_machine" "vm" {
   for_each   = var.vms
   name       = each.value.name
-  resource_pool_id = data.vsphere_resource_pool.pool.id # Aquí se asigna el pool de recursos
+  resource_pool_id = var.vsphere_resource_pool 
   datastore_id     = data.vsphere_datastore.datastore.id
 
   num_cpus         = var.vm_vcpu
