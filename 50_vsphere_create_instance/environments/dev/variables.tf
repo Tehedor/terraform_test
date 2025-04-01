@@ -9,6 +9,12 @@ variable "vsphere_password" {
   sensitive   = true
 }
 
+variable "vsphere_server" {
+  description = "Dirección del servidor vSphere"
+  type        = string
+  
+}
+
 variable "vsphere_datacenter" {
   description = "Nombre del datacenter en vSphere"
   type        = string
