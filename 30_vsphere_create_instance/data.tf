@@ -21,7 +21,7 @@ data "vsphere_network" "network" {
 
 data "vsphere_resource_pool" "custom_pool" {
   name          = var.vsphere_resource_pool
-  datacenter_id = data.vsphere_datacenter.datacenter.id
+  datacenter_id = data.vsphere_datacenter.dc01.id
 }
 
 # data "vsphere_virtual_machine" "template" {
