@@ -3,7 +3,9 @@
 resource "vsphere_virtual_machine" "vm" {
   for_each   = var.vms
   name       = each.value.name
-  resource_pool_id = var.vsphere_resource_pool 
+  # resource_pool_id =  data.vsphere_compute_cluster.cluster.resource_pool_id 
+  resource_pool_id = data.vsphere_resource_pool.custom_pool.id
+  # resource_pool_id = var.vsphere_resource_pool 
   datastore_id     = data.vsphere_datastore.datastore.id
 
   num_cpus         = var.vm_vcpu
