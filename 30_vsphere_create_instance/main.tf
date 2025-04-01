@@ -50,4 +50,17 @@ resource "vsphere_virtual_machine" "vm" {
   # provisioner "local-exec" {
   #   command = "echo 'Creando máquina virtual: ${each.value.name}'"
   # }
+
+  vapp {
+    properties = {
+      "guestinfo.hostname"     = each.value.name
+      "guestinfo.ipaddress"    = each.value.vm_ip
+      "guestinfo.netmask"      = var.vm_ipv4_netmask
+      "guestinfo.gateway"      = var.vm_ipv4_gateway
+      "guestinfo.dns"          = join(",", var.vm_dns_servers)
+      "guestinfo.domain"       = var.domain
+      "guestinfo.password"     = "VMware1!",
+      "guestinfo.ssh"          = "True"
+    }
+  }
 }
