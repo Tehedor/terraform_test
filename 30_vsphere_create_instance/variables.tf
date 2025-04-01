@@ -16,15 +16,21 @@ variable "vsphere_server" {
   
 }
 
-# Vsphere
+# Variables del Vcenter
 variable "vsphere_datacenter" {
-  description = "Nombre del datacenter en vSphere"
-  type        = string
+  description = "vSphere datacenter"
 }
 
-variable "vsphere_computer_cluster" {
-  description = "Nombre del clúster de computadoras en vSphere"
-  type        = string
+variable "vsphere_compute_cluster" { 
+  description = "vSphere cluster"
+}
+
+variable "vsphere_datastore" {
+  description = "vSphere Datastore"
+}
+
+variable "vsphere_network" {
+  description = "vSphere Portgroup"
 }
 
 variable "vsphere_resource_pool" {
@@ -32,17 +38,6 @@ variable "vsphere_resource_pool" {
   type        = string
 }
 
-variable "vsphere_datastore" {
-  description = "Nombre del datastore en vSphere"
-  type        = string
-}
-
-variable "vsphere_network" {
-  description = "Nombre de la red en vSphere"
-  type        = string
-}
-
-# VM
 #Variables de las VMs
 variable "vm_template_name" {
   description = "Template que vamos a utilizar para el despliegue de las VMs"
