@@ -27,18 +27,18 @@ resource "vsphere_virtual_machine" "vm" {
     thin_provisioned = var.vm_disk_thin
   }
 
-   vapp {
-    properties = {
-      "guestinfo.hostname"     = each.value.name
-      "guestinfo.ipaddress"    = each.value.vm_ip
-      "guestinfo.netmask"      = var.vm_ipv4_netmask
-      "guestinfo.gateway"      = var.vm_ipv4_gateway
-      "guestinfo.dns"          = join(",", var.vm_dns_servers)
-      "guestinfo.domain"       = var.domain
-      "guestinfo.password"     = "VMware1!",
-      "guestinfo.ssh"          = "True"
-    }
-  }
+  #  vapp {
+  #   properties = {
+  #     "guestinfo.hostname"     = each.value.name
+  #     "guestinfo.ipaddress"    = each.value.vm_ip
+  #     "guestinfo.netmask"      = var.vm_ipv4_netmask
+  #     "guestinfo.gateway"      = var.vm_ipv4_gateway
+  #     "guestinfo.dns"          = join(",", var.vm_dns_servers)
+  #     "guestinfo.domain"       = var.domain
+  #     "guestinfo.password"     = "VMware1!",
+  #     "guestinfo.ssh"          = "True"
+  #   }
+  # }
 
    cdrom {
     datastore_id = data.vsphere_datastore.iso_datastore.name
