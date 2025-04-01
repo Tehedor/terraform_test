@@ -13,7 +13,7 @@ resource "vsphere_virtual_machine" "vm" {
   # guest_id         = data.vsphere_virtual_machine.template.guest_id
   guest_id         = "ubuntu64Guest"
   firmware         = var.vm_firmware
-  efi_secure_boot_enabled = true
+  efi_secure_boot_enabled = false
 
   network_interface {
     network_id   = data.vsphere_network.network.id
