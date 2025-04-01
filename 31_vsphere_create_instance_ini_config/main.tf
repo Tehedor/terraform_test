@@ -22,24 +22,17 @@ resource "vsphere_virtual_machine" "vm" {
     thin_provisioned = var.vm_disk_thin
   }
 
+  # Configuración de la iso 
   cdrom {
     datastore_id = data.vsphere_datastore.iso_datastore.id
     path         = var.vsphere_iso_path
-  }
-
-    # Segundo CD-ROM: Archivo Preseed Local
-  cdrom {
-    client_device = true
-    path          = "preseed.cfg"
-    datastore_id  = null # No se usa porque es un archivo local
-    content       = file("${path.module}/pressed/preseed.cfg") # Lee el archivo local
   }
 
   # Configuración adicional para usar Preseed
   extra_config = {
     "efi.bootOrder.1" = "cdrom"
     "bios.bootDevice" = "cdrom"
-    "kernelopt"       = "auto"
+    "kernelopt"       = "auto url=https://github.com/Tehedor/terraform_test/raw/main/31_vsphere_create_instance_ini_config/pressed/pressed.cfg"
   }
 
 }
