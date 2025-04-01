@@ -41,7 +41,7 @@ resource "vsphere_virtual_machine" "vm" {
   # }
 
    cdrom {
-    datastore_id = data.vsphere_datastore.iso_datastore.name
+    datastore_id = data.vsphere_datastore.iso_datastore.id
     path         = var.vsphere_iso_path
   }
 }
