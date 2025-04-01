@@ -1,37 +1,41 @@
-module "check_vsphere" {
-  source = "../../modules/check-vsphere"
 
-  vsphere_user     = var.vsphere_user
-  vsphere_password = var.vsphere_password
-  vsphere_server   = var.vsphere_server
+# Creación de las Máquinas Virtuales
+resource "vsphere_virtual_machine" "vm" {
+  for_each   = var.vms
+  name       = each.value.name
+  resource_pool_id = data.vsphere_resource_pool.pool.id # Aquí se asigna el pool de recursos
+  datastore_id     = data.vsphere_datastore.datastore.id
+
+  num_cpus         = var.vm_vcpu
+  memory           = var.vm_memory
+  guest_id         = data.vsphere_virtual_machine.template.guest_id
+  firmware         = var.vm_firmware
+  efi_secure_boot_enabled = true
+
+  network_interface {
+    network_id   = data.vsphere_network.network.id
+    adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
+  }
+
+  disk {
+    label            = var.vm_disk_label
+    size             = var.vm_disk_size
+    thin_provisioned = var.vm_disk_thin
+  }
+
+  clone {
+    template_uuid = data.vsphere_virtual_machine.template.id
+    customize {
+      linux_options {
+        host_name = each.value.name
+        domain    = var.domain
+      }
+      network_interface {
+        ipv4_address = each.value.vm_ip
+        ipv4_netmask = var.vm_ipv4_netmask
+        dns_server_list = var.vm_dns_servers
+      }
+      ipv4_gateway = var.ipv4_gateway
+    }
+  }
 }
-
-# Crear la VM usando el módulo
-module "vm_ubuntu" {
-  source = "../../modules/vm-ubuntu"
-
-  vm_name        = "haproxy-vm"
-  vm_cpus        = 2
-  vm_memory      = 2048
-  vm_disk_size   = 20
-  vm_hostname    = "haproxy"
-  vm_domain      = "local"
-  vm_user        = "ubuntu"
-  ssh_public_key = file("~/.ssh/id_rsa.pub")
-}
-
-# Configurar HAProxy/Keepalived usando el módulo
-module "configuracion" {
-  source = "../../modules/configuracion"
-
-  vm_ip            = module.vm_ubuntu.vm_ip
-  vm_user          = "ubuntu"
-  ssh_private_key  = "~/.ssh/id_rsa"
-  backend_server1  = "192.168.1.10"
-  backend_server2  = "192.168.1.11"
-  keepalived_state = "MASTER"
-  keepalived_priority = "100"
-  keepalived_password = "secure_password"
-  vip_address       = "192.168.1.200"
-}
-
