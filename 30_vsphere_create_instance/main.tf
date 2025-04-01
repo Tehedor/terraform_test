@@ -8,7 +8,7 @@ resource "vsphere_virtual_machine" "vm" {
 
   num_cpus         = var.vm_vcpu
   memory           = var.vm_memory
-  guest_id         = data.vsphere_virtual_machine.template.guest_id
+  # guest_id         = data.vsphere_virtual_machine.template.guest_id
   firmware         = var.vm_firmware
   efi_secure_boot_enabled = true
 
@@ -31,6 +31,8 @@ resource "vsphere_virtual_machine" "vm" {
       "guestinfo.gateway"      = var.vm_ipv4_gateway
       "guestinfo.dns"          = join(",", var.vm_dns_servers)
       "guestinfo.domain"       = var.domain
+      "guestinfo.password"     = "VMware1!",
+      "guestinfo.ssh"          = "True"
     }
   }
 

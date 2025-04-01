@@ -50,9 +50,9 @@ variable "vsphere_iso_path" {
 }
 
 #Variables de las VMs
-variable "vm_template_name" {
-  description = "Template que vamos a utilizar para el despliegue de las VMs"
-}
+# variable "vm_template_name" {
+#   description = "Template que vamos a utilizar para el despliegue de las VMs"
+# }
 
 variable "vms" {
   type = map(any)

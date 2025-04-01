@@ -18,10 +18,10 @@ data "vsphere_network" "network" {
   datacenter_id = data.vsphere_datacenter.dc01.id
 }
 
-data "vsphere_virtual_machine" "template" {
-  name          = var.vm_template_name
-  datacenter_id = data.vsphere_datacenter.dc01.id
-}
+# data "vsphere_virtual_machine" "template" {
+#   name          = var.vm_template_name
+#   datacenter_id = data.vsphere_datacenter.dc01.id
+# }
 
 # Controlador de la ISO
 data "vsphere_datastore" "iso_datastore" {
