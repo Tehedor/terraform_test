@@ -9,12 +9,14 @@ resource "vsphere_virtual_machine" "vm" {
   num_cpus         = var.vm_vcpu
   memory           = var.vm_memory
   # guest_id         = data.vsphere_virtual_machine.template.guest_id
+  guest_id         = "ubuntu64Guest"
   firmware         = var.vm_firmware
   efi_secure_boot_enabled = true
 
   network_interface {
     network_id   = data.vsphere_network.network.id
-    adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
+    # adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
+    adapter_type = "vmxnet3"
   }
 
   disk {
