@@ -2,7 +2,7 @@ terraform {
   required_providers {
     vsphere = {
       source  = "hashicorp/vsphere"
-      version = "~> 2.9" # La notación "~>" significa que cualquier versión a partir de la 5.69 es válida.
+      version = "~> 2.9" # La notación "~>" significa que cualquier versión compatible con 2.9 es válida.
     }
     vault = {
       source  = "hashicorp/vault"
@@ -13,8 +13,8 @@ terraform {
 }
 
 provider "vsphere" {
-  user                 = data.vault_generic_secret.vsphere_secrets.data["user"]
-  password             = data.vault_generic_secret.vsphere_secrets.data["password"]
-  vsphere_server       = data.vault_generic_secret.vsphere_secrets.data["vsphere_server"]
+  user                 = var.vsphere_user
+  password             = var.vsphere_password
+  vsphere_server       = var.vsphere_server
   allow_unverified_ssl = true
 }
