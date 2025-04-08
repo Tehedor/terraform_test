@@ -27,46 +27,50 @@ resource "vsphere_virtual_machine" "vm" {
     datastore_id = data.vsphere_datastore.iso_datastore.id
     path         = var.vsphere_iso_path
   }
-  extra_config = {
+  # extra_config = {
+  #   "efi.bootOrder.1" = "cdrom"
+  #   # "guestinfo.userdata"     = base64encode(data.cloudinit_config.config)
+  #   "guestinfo.userdata"     = base64encode(data.cloudinit_config.config.rendered)
+  #   "guestinfo.userdata.encoding" = "base64"
+  # }
+    extra_config = {
     "efi.bootOrder.1" = "cdrom"
-    "guestinfo.userdata"     = base64encode(cloudinit_config.config.rendered)
-    "guestinfo.userdata.encoding" = "base64"
+    "guestinfo.userdata" = data.template_cloudinit_config.config.rendered
+    "guestinfo.userdata.encoding" = "gzip+base64"
   }
-
 }
 
 
-# Configuración de cloud-init
-data "cloudinit_config" "config" {
-  gzip          = false
+# Configuración de cloud-init con template_cloudinit_config
+data "template_cloudinit_config" "config" {
+  gzip          = true
   base64_encode = true
 
   part {
     content_type = "text/cloud-config"
-    content = yamlencode({
-      hostname = "mi-ubuntu-server"
-
-      users = [
-        {
-          name        = "miusuario"
-          passwd      = "$6$example$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-          sudo        = ["ALL=(ALL) NOPASSWD:ALL"]
-          groups      = ["sudo", "users"]
-          shell       = "/bin/bash"
-        }
-      ]
-
-      package_update = true
-      package_upgrade = true
-      packages       = ["openssh-server", "curl"]
-
-      runcmd = [
-        "systemctl enable --now ssh",
-      ]
-
-      locale   = "es_ES.UTF-8"
-      keyboard = ["es", "es"]
-      timezone = "Europe/Madrid"
-    })
+    content = <<-EOF
+      #cloud-config
+      hostname: supplier-01
+      locale: es_ES.UTF-8
+      keyboard:
+        layout: es
+        variant: ""
+      timezone: Europe/Madrid
+      users:
+        - name: miusuario
+          passwd: "$6$example$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+          groups: sudo,users
+          shell: /bin/bash
+      packages:
+        - openssh-server
+        - curl
+        - language-pack-es
+      runcmd:
+        - systemctl enable --now ssh
+        - locale-gen es_ES.UTF-8
+        - update-locale LANG=es_ES.UTF-8
+        - dpkg-reconfigure --frontend=noninteractive locales
+    EOF
   }
 }
