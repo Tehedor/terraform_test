@@ -37,7 +37,7 @@ resource "vsphere_virtual_machine" "vm" {
 
 
 # Configuración de cloud-init
-resource "cloudinit_config" "config" {
+data "cloudinit_config" "config" {
   gzip          = false
   base64_encode = true
 
