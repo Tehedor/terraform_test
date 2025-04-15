@@ -1,0 +1,4 @@
+locale: es_ES.UTF-8  # Idioma español
+timezone: Europe/Madrid  # Zona horaria
+keyboard:
+  layout: es  # Teclado español
