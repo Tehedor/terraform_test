@@ -6,3 +6,6 @@ terraform {
     arguments = ["-var-file=enviroments/terraform.tfvars"]
   }
 }
+
+# sudo snap install terragrunt 
+# terragrunt plan
