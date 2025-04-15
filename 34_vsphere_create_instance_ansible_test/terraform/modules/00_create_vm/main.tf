@@ -12,7 +12,7 @@ resource "vsphere_virtual_machine" "vm" {
   # firmware         = var.vm_firmware
   guest_id         = data.vsphere_virtual_machine.template.guest_id
   firmware         = data.vsphere_virtual_machine.template.firmware
-  efi_secure_boot_enable  d = false
+  efi_secure_boot_enabled = false
 
   network_interface {
     network_id   = data.vsphere_network.network.id
