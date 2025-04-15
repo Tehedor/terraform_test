@@ -1,4 +1,4 @@
-module "00_create_vm" {
+module "create_vm" {
   source = "./modules/00_create_vm"
 
   # Variables necesarias para el módulo
@@ -23,7 +23,7 @@ module "00_create_vm" {
   vsphere_resource_pool_id = data.vsphere_resource_pool.custom_pool.id
 }
 
-module "01_create_network" {
+module "create_network" {
   source = "./modules/01_create_network"
 
   # Variables necesarias para el módulo
