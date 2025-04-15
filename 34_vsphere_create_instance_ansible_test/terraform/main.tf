@@ -24,7 +24,7 @@ module "create_vm" {
 }
 
 module "create_network" {
-  source = "./modules/01_create_network"
+  source = "./modules/05_create_ansible_inventory"
 
   # Variables necesarias para el módulo
   network_name = var.network_name
