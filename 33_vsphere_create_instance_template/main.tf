@@ -42,17 +42,3 @@ resource "vsphere_virtual_machine" "vm" {
   }
 
 }
-
-resource "null_resource" "generate_inventory" {
-  count = length(var.vms)
-
-  provisioner "local-exec" {
-    command = <<EOT
-      echo "Generando inventario..."
-      terraform output -json > inventory/outputs.json
-    EOT
-  }
-
-  depends_on = [vsphere_virtual_machine.vm]
-  
-}

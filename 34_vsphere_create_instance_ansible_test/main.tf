@@ -45,5 +45,19 @@ resource "vsphere_virtual_machine" "vm" {
       ipv4_gateway = var.vm_ipv4_gateway
     }
   }
+}
 
+
+resource "null_resource" "generate_inventory" {
+  count = length(var.vms)
+
+  provisioner "local-exec" {
+    command = <<EOT
+      echo "Generando inventario..."
+      terraform output -json > inventory/outputs.json
+    EOT
+  }
+
+  depends_on = [vsphere_virtual_machine.vm]
+  
 }
