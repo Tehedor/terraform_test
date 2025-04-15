@@ -1,4 +1,4 @@
-module "create_vm" {
+module "vm_creation" {
   source = "./modules/00_create_vm"
 
   # Variables necesarias para el módulo
@@ -23,7 +23,7 @@ module "create_vm" {
   vsphere_resource_pool_id = data.vsphere_resource_pool.custom_pool.id
 }
 
-module "create_ansible_inventory" {
+module "ansible_inventory_setup" {
   source = "./modules/05_create_ansible_inventory"
 
   # Variables necesarias para el módulo
