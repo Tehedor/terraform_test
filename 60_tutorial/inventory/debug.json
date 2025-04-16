@@ -1,0 +1,19 @@
+{
+  "datastore_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "datastore-14001"
+  },
+  "vm_ips": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "kMasterU": "string"
+      }
+    ],
+    "value": {
+      "kMasterU": "172.16.1.203"
+    }
+  }
+}

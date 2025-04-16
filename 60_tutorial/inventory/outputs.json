@@ -1,0 +1,7 @@
+{
+  "datastore_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "datastore-14001"
+  }
+}
